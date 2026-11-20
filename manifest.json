@@ -1,0 +1,96 @@
+{
+  "clients": [
+    {
+      "id": "vibe",
+      "type": "vibe",
+      "name": "Vibe",
+      "version": "0.0.7",
+      "lines": [
+        "Forge 1.8.9 client with OptiFine.",
+        "Signs in with the account selected in the Alt Manager.",
+        "Minecraft, Forge, OptiFine and Java 8 are set up on the first start."
+      ],
+      "files": [
+        {
+          "path": "Vibe-1.8.9-0.0.7.jar",
+          "sha256": "cd8fc5b8419982d5ea141f8a5b85e2ef0139c666a8578f9f0e8dd32a7db23445",
+          "size": 57729276
+        }
+      ]
+    },
+    {
+      "id": "gothaj",
+      "type": "java",
+      "name": "Gothaj",
+      "version": "1.8.9",
+      "lines": [
+        "Gothaj client for Minecraft 1.8.",
+        "Plays with the account selected in the Alt Manager.",
+        "IRC, remote shutdown, Discord presence and online configs stay disabled."
+      ],
+      "files": [
+        {
+          "path": "Gothaj.jar",
+          "sha256": "ebcbb7ed5158086702fb818df0ce4057c3820505edead1a9193cd027c11ced61",
+          "size": 72017864
+        },
+        {
+          "path": "overrides/dev/vajzii/irc/IrcClient.class",
+          "sha256": "e87023992916023c90353caa4478628e5a6bb8007eada55f92348b07f043d500",
+          "size": 4793
+        },
+        {
+          "path": "overrides/dev/vajzii/irc/network/packets/Irc14CrashPlayer.class",
+          "sha256": "b447029928b4950181101c9a7a1b20014ad851b88bde3e0f3044f31efe0ef508",
+          "size": 3904
+        },
+        {
+          "path": "overrides/team/gothaj/client/api/config/ConfigManager.class",
+          "sha256": "41d11b8d03047e410d245776277f763641aa98a2effb4bdb90ad9f42ce7bb4a1",
+          "size": 20313
+        },
+        {
+          "path": "overrides/team/gothaj/client/impl/component/DiscordComponent.class",
+          "sha256": "7e688a98f61da74d02b9554bf961dc63cde0b08e4b94e933d6ff23168d875214",
+          "size": 5256
+        }
+      ],
+      "java": {
+        "name": "temurin-25.0.5+8-jre",
+        "url": "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.5%2B8/OpenJDK25U-jre_x64_windows_hotspot_25.0.5_8.zip",
+        "sha256": "da78d54a2fcdbba1e92d5e3f07dd30236f96297891c4a21a781c3f38f5c0beae"
+      },
+      "assets": {
+        "index": "1.8",
+        "url": "https://launchermeta.mojang.com/v1/packages/f6ad102bcaa53b1a58358f16e376d548d44933ec/1.8.json",
+        "sha1": "f6ad102bcaa53b1a58358f16e376d548d44933ec"
+      },
+      "command": [
+        "-Xmx2g",
+        "--enable-native-access\u003dALL-UNNAMED",
+        "-Dorg.lwjgl.system.SharedLibraryExtractPath\u003d${gameDir}/natives",
+        "-cp",
+        "${files}/overrides;${files}/Gothaj.jar",
+        "net.minecraft.client.main.Main",
+        "--version",
+        "1.8.9",
+        "--username",
+        "${username}",
+        "--uuid",
+        "${uuid}",
+        "--accessToken",
+        "${accessToken}",
+        "--userType",
+        "${userType}",
+        "--userProperties",
+        "{}",
+        "--assetIndex",
+        "1.8",
+        "--assetsDir",
+        "${assets}",
+        "--gameDir",
+        "${gameDir}"
+      ]
+    }
+  ]
+}
