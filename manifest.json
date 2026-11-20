@@ -4,19 +4,12 @@
       "id": "vibe",
       "type": "vibe",
       "name": "Vibe",
-      "version": "0.0.7",
       "lines": [
         "Forge 1.8.9 client with OptiFine.",
-        "Signs in with the account selected in the Alt Manager.",
-        "Minecraft, Forge, OptiFine and Java 8 are set up on the first start."
+        "Always the newest release from github.com/SkidderClub/Vibe.",
+        "Signs in with the account selected in the Alt Manager."
       ],
-      "files": [
-        {
-          "path": "Vibe-1.8.9-0.0.7.jar",
-          "sha256": "cd8fc5b8419982d5ea141f8a5b85e2ef0139c666a8578f9f0e8dd32a7db23445",
-          "size": 57729276
-        }
-      ]
+      "files": []
     },
     {
       "id": "gothaj",
