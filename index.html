@@ -332,7 +332,7 @@
           var thumb = card.appendChild(element('div', 'thumb'));
           thumb.style.setProperty('--x', (index * 37) % 100 + '%');
           thumb.appendChild(element('span', 'pill left', 'Free'));
-          var tag = client.type === 'vibe' ? 'Newest release' : client.version ? 'Minecraft ' + client.version : null;
+          var tag = client.type === 'vibe' ? 'Latest dev build' : client.version ? 'Minecraft ' + client.version : null;
           if (tag) thumb.appendChild(element('span', 'pill right', tag));
           thumb.appendChild(element('span', 'name', client.name)).setAttribute('aria-hidden', 'true');
           var body = card.appendChild(element('div', 'product-body'));
