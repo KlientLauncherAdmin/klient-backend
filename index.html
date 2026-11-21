@@ -10,180 +10,190 @@
 <meta property="og:image" content="https://klientlauncheradmin.github.io/klient-backend/launcher.jpg">
 <meta property="og:url" content="https://klientlauncheradmin.github.io/klient-backend/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#151722">
+<meta name="theme-color" content="#090a12">
 <link rel="icon" type="image/png" href="icon.png">
 <style>
   :root {
-    --bg: #151722;
-    --glass: rgba(0, 0, 0, .58);
-    --line: rgba(255, 255, 255, .09);
-    --text: #e6e9ed;
-    --muted: #a3a7ab;
-    --blue: #519ce6;
-    --green-top: #2ab23e;
-    --green-bottom: #16a32b;
-    --code: #8fc3f5;
-    --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --page: #191c2c;
+    --header: #090a12;
+    --card: #2f334c;
+    --card-hover: #363a57;
+    --cyan: #0ad1f8;
+    --on-cyan: #111423;
+    --text: #ffffff;
+    --muted: #b1bed0;
+    --line: rgba(177, 190, 208, .14);
+    --font: "Avenir Next Demi", "Avenir Next", "Segoe UI Semibold", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
     --mono: Consolas, "Cascadia Mono", ui-monospace, monospace;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
-  body {
-    margin: 0; min-height: 100vh; color: var(--text); font: 16px/1.55 var(--font);
-    background: var(--bg);
-  }
-  /* The launcher's mountain photo, fading into the dark title-bar colour further down the page. */
-  .backdrop {
-    position: fixed; inset: 0; z-index: -2;
-    background: linear-gradient(180deg, rgba(21, 23, 34, .25) 0%, rgba(21, 23, 34, .55) 55%, var(--bg) 100%),
-                url("background.jpg") center top / cover no-repeat;
-  }
-  #snow { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-  a { color: var(--blue); }
-  a:hover { color: #7ab6ee; }
-  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 3px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  body { margin: 0; background: var(--page); color: var(--text); font: 600 15px/1.6 var(--font); }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 
-  .bar {
-    position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 24px;
-    padding: 10px max(16px, calc((100vw - 1120px) / 2));
-    background: rgba(21, 23, 34, .82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
-  }
-  .brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-size: 17px; }
-  .brand img { width: 26px; height: 26px; }
-  .bar nav { display: flex; gap: 22px; margin-left: auto; }
-  .bar nav a { color: var(--muted); text-decoration: none; font-size: 15px; }
-  .bar nav a:hover { color: var(--text); }
-  .bar .small-download {
-    padding: 6px 14px; border-radius: 4px; color: #fff; text-decoration: none; font-size: 14px;
-    background: linear-gradient(var(--green-top), var(--green-bottom));
+  /* Header: near-black bar, wordmark left, cyan actions right. */
+  .header { position: sticky; top: 0; z-index: 20; background: var(--header); }
+  .header-inner { display: flex; align-items: center; gap: 28px; height: 76px; width: min(1140px, calc(100vw - 32px)); margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--text); font-weight: 800; font-size: 22px; letter-spacing: .5px; text-transform: uppercase; }
+  .brand:hover { text-decoration: none; }
+  .brand img { width: 38px; height: 38px; }
+  .brand b { color: var(--cyan); font-weight: inherit; }
+  .nav { display: flex; gap: 26px; margin-left: auto; }
+  .nav a { color: var(--text); font-size: 13px; text-transform: uppercase; letter-spacing: .6px; }
+  .nav a:hover { color: var(--cyan); text-decoration: none; }
+  .header-download { display: grid; place-items: center; width: 42px; height: 42px; color: var(--cyan); }
+  .header-download svg { width: 30px; height: 30px; }
+
+  main, .footer-inner { width: min(1140px, calc(100vw - 32px)); margin: 0 auto; }
+  section { padding: 64px 0 24px; }
+
+  /* Section titles: uppercase, extra bold, cyan pill bar underneath. */
+  .title { margin: 0 0 42px; text-align: center; font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; }
+  .title::after { content: ""; display: block; width: 144px; height: 4px; margin: 18px auto 0; border-radius: 500px; background: var(--cyan); }
+  .title.left { text-align: left; }
+  .title.left::after { margin-left: 0; }
+  .lead-center { margin: -24px auto 36px; max-width: 640px; text-align: center; color: var(--muted); }
+
+  .pill {
+    display: inline-block; padding: 9px 16px; border-radius: 500px; background: var(--cyan); color: var(--on-cyan);
+    font-size: 11px; font-weight: 700; line-height: 1; text-transform: uppercase; letter-spacing: .4px; white-space: nowrap;
   }
 
-  main, footer { width: min(1120px, calc(100vw - 32px)); margin: 0 auto; }
-
-  .hero { display: grid; grid-template-columns: 5fr 7fr; gap: 48px; align-items: center; padding: 72px 0 56px; }
-  h1 { margin: 0; font-weight: 300; font-size: clamp(42px, 6vw, 64px); line-height: 1.05; letter-spacing: -.5px; }
-  .lead { margin: 16px 0 28px; font-size: 19px; color: #d2d7de; max-width: 30ch; }
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 5fr 6fr; gap: 48px; align-items: center; padding-top: 72px; }
+  .hero h1 { margin: 0; font-size: clamp(34px, 5vw, 50px); font-weight: 800; line-height: 1.1; text-transform: uppercase; letter-spacing: .5px; }
+  .hero h1::after { content: ""; display: block; width: 144px; height: 4px; margin-top: 22px; border-radius: 500px; background: var(--cyan); }
+  .hero p.lead { margin: 22px 0 30px; font-size: 18px; color: var(--muted); max-width: 32ch; }
   .download {
-    display: inline-flex; align-items: center; gap: 12px; padding: 15px 30px 15px 24px; border-radius: 5px;
-    color: #f2f7f2; text-decoration: none; font-size: 21px;
-    background: linear-gradient(var(--green-top), var(--green-bottom));
-    box-shadow: inset 0 1px 0 #3fbf52, 0 8px 24px rgba(22, 163, 43, .28);
-    transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    display: inline-flex; align-items: center; gap: 12px; padding: 16px 30px; border-radius: 500px;
+    background: var(--cyan); color: var(--on-cyan); font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px;
+    box-shadow: 0 10px 30px rgba(10, 209, 248, .25); transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
   }
-  .download:hover { color: #fff; filter: brightness(1.1); transform: translateY(-1px); box-shadow: inset 0 1px 0 #3fbf52, 0 12px 30px rgba(22, 163, 43, .38); }
-  .download:active { transform: translateY(1px); filter: brightness(.95); }
-  .download svg { width: 24px; height: 24px; flex: none; }
-  .meta { margin: 14px 0 0; color: var(--muted); font-size: 14px; }
-  .java { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
-  .notice { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; color: #cfe3f7; font-size: 14px; }
-  .notice svg { width: 16px; height: 16px; flex: none; color: var(--blue); }
+  .download:hover { text-decoration: none; filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 14px 36px rgba(10, 209, 248, .35); }
+  .download:active { transform: translateY(1px); }
+  .download svg { width: 22px; height: 22px; flex: none; }
+  .meta { margin: 16px 0 0; color: var(--muted); font-size: 13px; }
+  .java { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+  .notice { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; color: var(--text); font-size: 13px; }
+  .notice svg { width: 16px; height: 16px; flex: none; color: var(--cyan); }
   .notice[hidden] { display: none; }
+  .shot { margin: 0; border-radius: 3px; overflow: hidden; background: var(--card); box-shadow: 0 24px 60px rgba(0, 0, 0, .45); }
+  .shot img { display: block; width: 100%; height: auto; }
 
-  .window {
-    margin: 0; border-radius: 7px; overflow: hidden; border: 1px solid var(--line);
-    box-shadow: 0 30px 70px rgba(0, 0, 0, .55), 0 0 0 1px rgba(0, 0, 0, .4);
+  /* Clients: shop-style product cards. */
+  .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+  .product { display: flex; flex-direction: column; border-radius: 3px; background: var(--card); overflow: hidden; transition: background .15s ease, transform .15s ease; }
+  .product:hover { background: var(--card-hover); transform: translateY(-2px); }
+  .thumb {
+    position: relative; aspect-ratio: 5 / 4; display: grid; place-items: center; overflow: hidden;
+    background: linear-gradient(rgba(25, 28, 44, .25), rgba(25, 28, 44, .7)), url("background.jpg") var(--x, 50%) 40% / 220% auto;
   }
-  .window img { display: block; width: 100%; height: auto; }
+  .thumb .name { padding: 0 18px; font-size: clamp(30px, 3.4vw, 46px); font-weight: 800; line-height: 1; text-align: center; text-shadow: 0 4px 24px rgba(0, 0, 0, .5); }
+  .thumb .pill { position: absolute; top: 16px; }
+  .thumb .pill.left { left: 16px; }
+  .thumb .pill.right { right: 16px; }
+  .product-body { padding: 20px 22px 24px; }
+  .product h3 { margin: 0 0 6px; font-size: 20px; font-weight: 600; line-height: 1.5; }
+  .price { margin: 0 0 12px; color: var(--cyan); font-size: 20px; }
+  .product p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+  .placeholder { grid-column: 1 / -1; color: var(--muted); text-align: center; }
 
-  section { padding: 56px 0; }
-  h2 { margin: 0 0 6px; font-weight: 300; font-size: 34px; }
-  .section-lead { margin: 0 0 26px; color: var(--muted); }
-
-  .clients { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
-  .client {
-    position: relative; overflow: hidden; padding: 20px 22px; border-radius: 6px;
-    background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(6px);
-  }
-  /* Faint italic watermark of the name, like the launcher's dashboard carousel. */
-  .client .mark {
-    position: absolute; right: -6px; bottom: -14px; font: italic 800 72px/1 var(--font);
-    color: rgba(255, 255, 255, .05); text-transform: uppercase; pointer-events: none; white-space: nowrap;
-  }
-  .client h3 { margin: 0 0 8px; font-weight: 300; font-size: 30px; display: flex; align-items: center; gap: 12px; }
-  .chip { font-size: 12px; font-weight: 400; color: #cfe3f7; padding: 2px 8px; border-radius: 10px; background: rgba(81, 156, 230, .22); }
-  .client p { margin: 2px 0; color: var(--muted); font-size: 14px; position: relative; }
-  .placeholder { color: var(--muted); }
-
-  .feature { display: grid; grid-template-columns: 1fr 1.25fr; gap: 44px; align-items: center; padding: 28px 0; }
-  .feature.flip { grid-template-columns: 1.25fr 1fr; }
+  /* Features and setup cards */
+  .feature { display: grid; grid-template-columns: 1fr 1.2fr; gap: 44px; align-items: center; margin-bottom: 48px; }
+  .feature.flip { grid-template-columns: 1.2fr 1fr; }
   .feature.flip .copy { order: 2; }
-  .feature h3 { margin: 0 0 10px; font-weight: 300; font-size: 28px; }
-  .feature p { margin: 0 0 10px; color: #c9ced6; }
-  .points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
-  .point { padding: 20px 22px; border-radius: 6px; background: var(--glass); border: 1px solid var(--line); }
-  .point h3 { margin: 0 0 6px; font-weight: 400; font-size: 18px; }
-  .point p { margin: 0; color: var(--muted); font-size: 14px; }
-
-  .steps { counter-reset: step; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .steps li { counter-increment: step; padding: 20px 22px; border-radius: 6px; background: var(--glass); border: 1px solid var(--line); }
+  .feature h3 { margin: 0 0 12px; font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; }
+  .feature p { margin: 0 0 10px; color: var(--muted); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+  .card { padding: 26px 24px; border-radius: 3px; background: var(--card); }
+  .card h3 { margin: 0 0 8px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; }
+  .card p { margin: 0; color: var(--muted); font-size: 14px; }
+  .steps { counter-reset: step; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+  .steps li { counter-increment: step; padding: 26px 24px; border-radius: 3px; background: var(--card); }
   .steps li::before {
-    content: counter(step); display: grid; place-items: center; width: 34px; height: 34px; margin-bottom: 12px;
-    border-radius: 50%; background: linear-gradient(#519ce6, #418bd0); font-weight: 600;
+    content: counter(step); display: grid; place-items: center; width: 38px; height: 38px; margin-bottom: 16px;
+    border-radius: 500px; background: var(--cyan); color: var(--on-cyan); font-weight: 800;
   }
-  .steps h3 { margin: 0 0 6px; font-weight: 400; font-size: 18px; }
+  .steps h3 { margin: 0 0 8px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; }
   .steps p { margin: 0; color: var(--muted); font-size: 14px; }
 
-  .faq details { border-bottom: 1px solid var(--line); }
-  .faq summary { cursor: pointer; padding: 16px 0; font-size: 17px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  .faq { display: grid; gap: 10px; max-width: 860px; margin: 0 auto; }
+  .faq details { border-radius: 3px; background: var(--card); }
+  .faq summary { cursor: pointer; padding: 18px 22px; list-style: none; display: flex; justify-content: space-between; gap: 16px; font-size: 16px; }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: "+"; color: var(--muted); font-size: 22px; line-height: 1; }
+  .faq summary::after { content: "+"; color: var(--cyan); font-size: 22px; line-height: 1; }
   .faq details[open] summary::after { content: "\2212"; }
-  .faq details > div { padding: 0 0 18px; color: #c9ced6; }
-  .faq p { margin: 0 0 10px; }
-  .command { display: flex; align-items: stretch; max-width: 460px; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
-  .command code { flex: 1; padding: 9px 12px; background: rgba(0, 0, 0, .55); color: var(--code); font: 14px var(--mono); overflow-x: auto; white-space: nowrap; }
-  .command button {
-    border: 0; padding: 0 14px; color: var(--text); font: 14px var(--font); cursor: pointer; background: rgba(255, 255, 255, .1);
+  .faq details > div { padding: 0 22px 20px; color: var(--muted); }
+  .faq p { margin: 0 0 12px; }
+  .command { display: flex; max-width: 460px; border-radius: 3px; overflow: hidden; }
+  .command code { flex: 1; padding: 10px 14px; background: var(--header); color: var(--cyan); font: 14px var(--mono); overflow-x: auto; white-space: nowrap; }
+  .command button { border: 0; padding: 0 18px; background: var(--cyan); color: var(--on-cyan); font: 700 12px var(--font); text-transform: uppercase; letter-spacing: .4px; cursor: pointer; }
+  .command button:hover { filter: brightness(1.08); }
+  code.inline { font: 14px var(--mono); color: var(--cyan); }
+
+  footer { margin-top: 64px; background: var(--header); color: var(--muted); font-size: 13px; }
+  .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding: 28px 0; }
+
+  /* Back to top, like the shop's dark square button. */
+  .top {
+    position: fixed; right: 20px; bottom: 20px; z-index: 20; display: grid; place-items: center; width: 52px; height: 52px;
+    background: var(--header); color: var(--text); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px;
+    opacity: 0; pointer-events: none; transition: opacity .2s ease;
   }
-  .command button:hover { background: rgba(255, 255, 255, .16); }
-  code.inline { font: 14px var(--mono); color: var(--code); }
+  .top.visible { opacity: 1; pointer-events: auto; }
+  .top:hover { color: var(--cyan); text-decoration: none; }
+  .top svg { width: 14px; height: 14px; }
 
-  footer { padding: 32px 0 44px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); margin-top: 24px; }
-
-  @media (max-width: 960px) {
-    .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 48px; }
-    .feature, .feature.flip { grid-template-columns: 1fr; gap: 20px; }
+  @media (max-width: 1000px) {
+    .hero, .feature, .feature.flip { grid-template-columns: 1fr; gap: 32px; }
     .feature.flip .copy { order: 0; }
-    .points { grid-template-columns: 1fr; }
+    .products { grid-template-columns: repeat(2, 1fr); }
+    .cards { grid-template-columns: 1fr; }
     .steps { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 600px) {
-    .bar nav { display: none; }
-    .bar .small-download { margin-left: auto; }
-    .steps { grid-template-columns: 1fr; }
-    .clients { grid-template-columns: 1fr; }
+  @media (max-width: 640px) {
+    .nav { display: none; }
+    .header-download { margin-left: auto; }
+    .header-inner { height: 64px; }
+    .brand { font-size: 18px; }
+    .products, .steps { grid-template-columns: 1fr; }
     .download { width: 100%; justify-content: center; }
-    h2 { font-size: 28px; }
+    section { padding-top: 48px; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .download { transition: none; }
+    .download, .product, .top { transition: none; }
   }
 </style>
 </head>
 <body>
-<div class="backdrop" aria-hidden="true"></div>
-<canvas id="snow" aria-hidden="true"></canvas>
-
-<header class="bar">
-  <a class="brand" href="#top"><img src="icon.png" alt="">KlientLauncher</a>
-  <nav aria-label="Sections">
-    <a href="#clients">Clients</a>
-    <a href="#features">Features</a>
-    <a href="#setup">Setup</a>
-    <a href="#help">Help</a>
-  </nav>
-  <a class="small-download" href="KlientLauncher.jar" download>Download</a>
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="#top"><img src="icon.png" alt=""><span>Klient<b>Launcher</b></span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#clients">Clients</a>
+      <a href="#features">Features</a>
+      <a href="#setup">Setup</a>
+      <a href="#help">Help</a>
+    </nav>
+    <a class="header-download" href="KlientLauncher.jar" download aria-label="Download KlientLauncher">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+      </svg>
+    </a>
+  </div>
 </header>
 
 <main id="top">
-  <section class="hero" aria-labelledby="title">
+  <section class="hero" aria-labelledby="hero-title">
     <div>
-      <h1 id="title">KlientLauncher</h1>
+      <h1 id="hero-title">KlientLauncher</h1>
       <p class="lead">One launcher for your Minecraft 1.8.9 clients. Sign in once, pick a client, press Start.</p>
       <a class="download" href="KlientLauncher.jar" download>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 19h14"/>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/>
         </svg>
         Download for Windows
       </a>
@@ -194,28 +204,28 @@
         For Windows PCs. Open this page on your computer to download.
       </p>
     </div>
-    <figure class="window">
+    <figure class="shot">
       <img src="launcher.jpg" width="1554" height="974" alt="The KlientLauncher dashboard showing the Vibe client, with tabs for Clients, Redeem key, Settings and Alt Manager">
     </figure>
   </section>
 
   <section id="clients" aria-labelledby="clients-title">
-    <h2 id="clients-title">Clients</h2>
-    <p class="section-lead">Everything the launcher can start right now. New versions arrive the next time you press Start.</p>
-    <div class="clients" id="client-list">
+    <h2 class="title" id="clients-title">Clients</h2>
+    <p class="lead-center">Every client in the launcher. New versions arrive the next time you press Start.</p>
+    <div class="products" id="client-list">
       <p class="placeholder">Loading the client list&hellip;</p>
     </div>
   </section>
 
   <section id="features" aria-labelledby="features-title">
-    <h2 id="features-title">Features</h2>
+    <h2 class="title" id="features-title">Features</h2>
     <div class="feature">
       <div class="copy">
         <h3>Your accounts, in one place</h3>
         <p>Sign in with Microsoft using a code in your browser, or use cookie, token and offline logins. With Auto login, one click on Login signs in your main account.</p>
         <p>The Alt Manager is Vibe&rsquo;s own, with the same encrypted vault, so your accounts work in the launcher and in game alike.</p>
       </div>
-      <figure class="window">
+      <figure class="shot">
         <img src="alt-manager.jpg" width="1554" height="974" loading="lazy" alt="The Alt Manager with three saved accounts and buttons for Cookie, Microsoft, Token and offline login">
       </figure>
     </div>
@@ -225,20 +235,20 @@
         <p>Every client opens a console window with the download progress and the live game log. Warnings show in yellow and errors in red, so a crash explains itself.</p>
         <p>Stop ends the game and everything it started. Copy log puts the whole output on your clipboard for a bug report.</p>
       </div>
-      <figure class="window">
+      <figure class="shot">
         <img src="console.jpg" width="1554" height="974" loading="lazy" alt="The console window while Vibe starts: launcher steps in blue, then the Minecraft log">
       </figure>
     </div>
-    <div class="points">
-      <div class="point">
+    <div class="cards">
+      <div class="card">
         <h3>Always up to date</h3>
         <p>Vibe comes straight from <a href="https://github.com/SkidderClub/Vibe" rel="noopener">github.com/SkidderClub/Vibe</a>; the other clients from this site.</p>
       </div>
-      <div class="point">
+      <div class="card">
         <h3>Checked before it runs</h3>
         <p>Every downloaded file is compared with its published checksum. Anything that doesn&rsquo;t match is thrown away.</p>
       </div>
-      <div class="point">
+      <div class="card">
         <h3>Nothing to set up</h3>
         <p>Java, Minecraft 1.8.9, Forge, OptiFine and the game assets are downloaded for you on the first start.</p>
       </div>
@@ -246,8 +256,8 @@
   </section>
 
   <section id="setup" aria-labelledby="setup-title">
-    <h2 id="setup-title">Setup</h2>
-    <p class="section-lead">About two minutes the first time. After that, starting a client is one click.</p>
+    <h2 class="title" id="setup-title">Setup</h2>
+    <p class="lead-center">About two minutes the first time. After that, starting a client is one click.</p>
     <ol class="steps">
       <li><h3>Install Java</h3><p>Skip this if you have Java 11 or newer. Otherwise install <a href="https://adoptium.net/temurin/releases/?version=21&amp;os=windows" rel="noopener">Temurin 21</a> (the .msi).</p></li>
       <li><h3>Download</h3><p>Get <a href="KlientLauncher.jar" download>KlientLauncher.jar</a> and put it anywhere, for example on your desktop.</p></li>
@@ -257,7 +267,7 @@
   </section>
 
   <section id="help" aria-labelledby="help-title">
-    <h2 id="help-title">Help</h2>
+    <h2 class="title" id="help-title">Help</h2>
     <div class="faq">
       <details>
         <summary>Double-clicking opens WinRAR or 7-Zip instead of the launcher</summary>
@@ -291,8 +301,16 @@
 </main>
 
 <footer>
-  KlientLauncher &middot; Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.
+  <div class="footer-inner">
+    <span>KlientLauncher</span>
+    <span>Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</span>
+  </div>
 </footer>
+
+<a class="top" href="#top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+  Top
+</a>
 
 <script>
   // Clients straight from the backend's manifest, so the page always matches what the launcher shows.
@@ -309,13 +327,18 @@
       .then(function (manifest) {
         var clients = (manifest && manifest.clients) || [];
         if (!clients.length) throw new Error();
-        list.replaceChildren.apply(list, clients.map(function (client) {
-          var card = element('article', 'client');
-          card.appendChild(element('span', 'mark', client.name)).setAttribute('aria-hidden', 'true');
-          var title = card.appendChild(element('h3', null, client.name));
-          var chip = client.type === 'vibe' ? 'newest release' : client.version ? 'Minecraft ' + client.version : null;
-          if (chip) title.appendChild(element('span', 'chip', chip));
-          (client.lines || []).forEach(function (line) { card.appendChild(element('p', null, line)); });
+        list.replaceChildren.apply(list, clients.map(function (client, index) {
+          var card = element('article', 'product');
+          var thumb = card.appendChild(element('div', 'thumb'));
+          thumb.style.setProperty('--x', (index * 37) % 100 + '%');
+          thumb.appendChild(element('span', 'pill left', 'Free'));
+          var tag = client.type === 'vibe' ? 'Newest release' : client.version ? 'Minecraft ' + client.version : null;
+          if (tag) thumb.appendChild(element('span', 'pill right', tag));
+          thumb.appendChild(element('span', 'name', client.name)).setAttribute('aria-hidden', 'true');
+          var body = card.appendChild(element('div', 'product-body'));
+          body.appendChild(element('h3', null, client.name));
+          body.appendChild(element('div', 'price', 'Free'));
+          (client.lines || []).forEach(function (line) { body.appendChild(element('p', null, line)); });
           return card;
         }));
       })
@@ -334,48 +357,8 @@
     });
   });
 
-  // Falling snow like the launcher's background; off when the system asks for reduced motion.
-  (function () {
-    var canvas = document.getElementById('snow'), context = canvas.getContext('2d');
-    if (!context || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var flakes = [], width = 0, height = 0, last = performance.now();
-    function reset(flake, anywhere) {
-      flake.x = Math.random() * width;
-      flake.y = anywhere ? Math.random() * height : -6;
-      flake.r = .7 + Math.random() * 1.6;
-      flake.speed = 10 + flake.r * 14 + Math.random() * 12;
-      flake.phase = Math.random() * 6.28;
-      flake.alpha = .18 + Math.random() * .4;
-    }
-    function resize() {
-      var ratio = window.devicePixelRatio || 1;
-      width = innerWidth; height = innerHeight;
-      canvas.width = width * ratio; canvas.height = height * ratio;
-      canvas.style.width = width + 'px'; canvas.style.height = height + 'px';
-      context.setTransform(ratio, 0, 0, ratio, 0, 0);
-      var wanted = Math.round(width * height / 26000);
-      while (flakes.length < wanted) { var flake = {}; reset(flake, true); flakes.push(flake); }
-      flakes.length = Math.min(flakes.length, wanted);
-    }
-    function frame(now) {
-      var seconds = Math.min(.1, (now - last) / 1000), time = now / 1000;
-      last = now;
-      context.clearRect(0, 0, width, height);
-      flakes.forEach(function (flake) {
-        flake.y += flake.speed * seconds;
-        flake.x += Math.sin(time * .7 + flake.phase) * 9 * seconds;
-        if (flake.y > height + 6) reset(flake, false);
-        context.fillStyle = 'rgba(255,255,255,' + flake.alpha * .35 + ')';
-        context.beginPath(); context.arc(flake.x, flake.y, flake.r * 1.8, 0, 6.283); context.fill();
-        context.fillStyle = 'rgba(255,255,255,' + flake.alpha + ')';
-        context.beginPath(); context.arc(flake.x, flake.y, flake.r, 0, 6.283); context.fill();
-      });
-      requestAnimationFrame(frame);
-    }
-    addEventListener('resize', resize);
-    resize();
-    requestAnimationFrame(frame);
-  })();
+  var backToTop = document.querySelector('.top');
+  addEventListener('scroll', function () { backToTop.classList.toggle('visible', scrollY > 600); }, { passive: true });
 </script>
 </body>
 </html>
